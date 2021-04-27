@@ -194,11 +194,6 @@ public class Main extends JFrame implements ActionListener
                     }
                 }
             }
-            /*else
-            {
-
-                break;
-            }*/
         }
         sum = Double.parseDouble(snum.peek().toString());
         return sum;
