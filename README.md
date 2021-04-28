@@ -8,6 +8,16 @@
 
 另外本程序附带计算器，可以进行一系列简单的运算
 
+<img src="https://raw.githubusercontent.com/KobayashiSouryuu/FourOperationsGenerator/master/%E6%BC%94%E7%A4%BA1.png" width="50%">
+
+<img src="https://raw.githubusercontent.com/KobayashiSouryuu/FourOperationsGenerator/master/%E6%BC%94%E7%A4%BA2.png" width="50%">
+
+<img src="https://raw.githubusercontent.com/KobayashiSouryuu/FourOperationsGenerator/master/%E6%BC%94%E7%A4%BA3.png" width="50%">
+
+<img src="https://raw.githubusercontent.com/KobayashiSouryuu/FourOperationsGenerator/master/%E6%BC%94%E7%A4%BA4.png" width="25%">
+
+<img src="https://raw.githubusercontent.com/KobayashiSouryuu/FourOperationsGenerator/master/%E6%BC%94%E7%A4%BA5.png" width="50%">
+
 ## 已知bug
 
 1.勾选小数时不会出现(-1,1)区间的小数
