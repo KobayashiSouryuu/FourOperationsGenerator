@@ -1,12 +1,13 @@
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.Random;
-import java.util.Stack;
+import javax.print.*;
+import javax.print.attribute.DocAttributeSet;
+import javax.print.attribute.HashDocAttributeSet;
+import javax.print.attribute.HashPrintRequestAttributeSet;
+import javax.print.attribute.PrintRequestAttributeSet;
 import javax.swing.*;
 
 public class Main extends JFrame implements ActionListener
@@ -26,6 +27,7 @@ public class Main extends JFrame implements ActionListener
     JButton Print;
     JScrollPane JSP;
     JButton Counter;
+    JButton Printer;
 
     public static void main(String[] args)
     {
@@ -59,7 +61,6 @@ public class Main extends JFrame implements ActionListener
         JSP = new JScrollPane(outcome);
         JSP.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
         JSP.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        Counter = new JButton("计算器");
 
         Test = new JButton("生成算式");
         Test.addActionListener(this);
@@ -67,7 +68,11 @@ public class Main extends JFrame implements ActionListener
         Print = new JButton("保存本地");
         Print.addActionListener(this);
         this.setLayout(new GridLayout(1, 0));
+        Counter = new JButton("计算器");
         Counter.addActionListener(this);
+        this.setLayout(new GridLayout(1, 0));
+        Printer = new JButton("打印");
+        Printer.addActionListener(this);
         this.setLayout(new GridLayout(1, 0));
 
         JP.add(ChooseSign);
@@ -81,12 +86,14 @@ public class Main extends JFrame implements ActionListener
         JP.add(AnsFlag);
         JP.add(OnlyPositive);
         JP.add(Counter);
+        JP.add(Printer);
         JP.add(TextMaxNum);
         JP.add(MaxNum);
         JP.add(TextQuestionNum);
         JP.add(QuestionNum);
         JP.add(Test);
         JP.add(Print);
+
         JP.add(JSP);
 
         // 加入到JFrame
@@ -294,7 +301,7 @@ public class Main extends JFrame implements ActionListener
                     return;
                 }
                 BufferedWriter outFile = new BufferedWriter(new FileWriter(fileName));
-                outFile.write(outcome.getText()); //put in textfile
+                outFile.write(outcome.getText());
                 outFile.close();
             }
             catch (IOException ex)
@@ -304,6 +311,53 @@ public class Main extends JFrame implements ActionListener
         if (e.getSource() == Counter)
         {
             Count c = new Count();
+        }
+        if (e.getSource() == Printer)
+        {
+            //先保存
+            JFileChooser SaveAs = new JFileChooser();
+            File fileName = new File("E:\\print_temporary.txt");
+            System.out.println("hahaha");
+            try
+            {
+                if (fileName == null)
+                {
+                    return;
+                }
+                BufferedWriter outFile = new BufferedWriter(new FileWriter(fileName));
+                outFile.write(outcome.getText());
+                outFile.close();
+            }
+            catch (IOException ex)
+            {
+            }
+            //打印
+            PrintRequestAttributeSet pras = new HashPrintRequestAttributeSet();//构建打印请求属性集
+            DocFlavor flavor = DocFlavor.INPUT_STREAM.AUTOSENSE;//设置打印格式，因为未确定文件类型，这里选择AUTOSENSE
+            PrintService printService[] = PrintServiceLookup.lookupPrintServices(flavor, pras);//查找所有的可用打印服务
+            PrintService defaultService = PrintServiceLookup.lookupDefaultPrintService();//定位默认的打印服务
+            // 显示打印对话框
+            PrintService service = ServiceUI.printDialog(null, 200, 200, printService, defaultService, flavor, pras);
+            if (service != null)
+            {
+                try
+                {
+                    DocPrintJob job = service.createPrintJob(); // 创建打印作业
+                    FileInputStream fis; // 构造待打印的文件流
+                    fis = new FileInputStream(fileName);
+                    DocAttributeSet das = new HashDocAttributeSet();
+                    Doc doc = new SimpleDoc(fis, flavor, das);
+                    job.print(doc, pras);
+                }
+                catch (Exception ee)
+                {
+                    ee.printStackTrace();
+                }
+            }
+            if (fileName.exists() && fileName.isFile())
+            {
+                fileName.delete();
+            }
         }
     }
 }
