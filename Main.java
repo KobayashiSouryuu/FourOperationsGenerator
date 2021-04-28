@@ -25,6 +25,7 @@ public class Main extends JFrame implements ActionListener
     JButton Test;
     JButton Print;
     JScrollPane JSP;
+    JButton Counter;
 
     public static void main(String[] args)
     {
@@ -54,16 +55,19 @@ public class Main extends JFrame implements ActionListener
         ChooseSign = new JLabel("请选择你需要的符号");
         ChooseFun = new JLabel("请选择需要的功能");
         TextMaxNum = new JLabel("请输入题目最大数");
-        TextQuestionNum = new JLabel("请输入想输出的题目数量");
+        TextQuestionNum = new JLabel("题目数量");
         JSP = new JScrollPane(outcome);
         JSP.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
         JSP.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        Counter = new JButton("计算器");
 
         Test = new JButton("生成算式");
         Test.addActionListener(this);
         this.setLayout(new GridLayout(1, 0));
         Print = new JButton("保存本地");
         Print.addActionListener(this);
+        this.setLayout(new GridLayout(1, 0));
+        Counter.addActionListener(this);
         this.setLayout(new GridLayout(1, 0));
 
         JP.add(ChooseSign);
@@ -76,11 +80,12 @@ public class Main extends JFrame implements ActionListener
         JP.add(SmallNum);
         JP.add(AnsFlag);
         JP.add(OnlyPositive);
-        JP.add(Test);
+        JP.add(Counter);
         JP.add(TextMaxNum);
         JP.add(MaxNum);
         JP.add(TextQuestionNum);
         JP.add(QuestionNum);
+        JP.add(Test);
         JP.add(Print);
         JP.add(JSP);
 
@@ -92,112 +97,6 @@ public class Main extends JFrame implements ActionListener
         this.setVisible(true);
     }
 
-    public static double JiSuan(String p)
-    {
-        double sum = 0;
-        Stack snum = new Stack();
-        Stack ssign = new Stack();
-        int stacknum = 0;
-        int kuohaostacknum = 0;
-        String str = new String();
-        for (int i = 0; i < p.length(); i++)
-        {
-            if (Character.isDigit(p.charAt(i)) || p.charAt(i) == '.')
-            {
-                str = str + p.charAt(i);
-            }
-            else
-            {
-                if (!str.isEmpty())
-                {
-                    snum.push(str);
-                    stacknum++;
-                }
-                str = "";
-                while (true)
-                {
-                    if (ssign.empty() || ((p.charAt(i) == '×' || p.charAt(i) == '÷') && (ssign.peek().toString().charAt(0) == '+' || ssign.peek().toString().charAt(0) == '-')) || p.charAt(i) == '(' || ssign.peek().toString().charAt(0) == '(')
-                    {
-                        if (p.charAt(i) == '(')
-                        {
-                            kuohaostacknum = 1;
-                        }
-                        ssign.push(p.charAt(i));
-                        break;
-                    }
-                    if (stacknum < 2)
-                    {
-                        break;
-                    }
-                    if (kuohaostacknum == 1)
-                    {
-                        break;
-                    }
-                    double a = Double.parseDouble(snum.peek().toString());
-                    snum.pop();
-                    stacknum--;
-                    if (kuohaostacknum > 1)
-                    {
-                        kuohaostacknum--;
-                    }
-                    double b = Double.parseDouble(snum.peek().toString());
-                    snum.pop();
-                    stacknum--;
-                    if (kuohaostacknum > 1)
-                    {
-                        kuohaostacknum--;
-                    }
-                    if (ssign.peek().toString().charAt(0) == '+')
-                    {
-                        snum.push(String.valueOf(a + b));
-                        stacknum++;
-                        if (kuohaostacknum >= 1)
-                        {
-                            kuohaostacknum++;
-                        }
-                        ssign.pop();
-                    }
-                    else if (ssign.peek().toString().charAt(0) == '-')
-                    {
-                        snum.push(String.valueOf(b - a));
-                        stacknum++;
-                        if (kuohaostacknum >= 1)
-                        {
-                            kuohaostacknum++;
-                        }
-                        ssign.pop();
-                    }
-                    else if (ssign.peek().toString().charAt(0) == '×')
-                    {
-                        snum.push(String.valueOf(a * b));
-                        stacknum++;
-                        if (kuohaostacknum >= 1)
-                        {
-                            kuohaostacknum++;
-                        }
-                        ssign.pop();
-                    }
-                    else
-                    {
-                        snum.push(String.valueOf(b / a));
-                        stacknum++;
-                        if (kuohaostacknum >= 1)
-                        {
-                            kuohaostacknum++;
-                        }
-                        ssign.pop();
-                    }
-                    if (p.charAt(i) == ')' && ssign.peek().toString().charAt(0) == '(')
-                    {
-                        kuohaostacknum = 0;
-                        ssign.pop();
-                    }
-                }
-            }
-        }
-        sum = Double.parseDouble(snum.peek().toString());
-        return sum;
-    }
 
     @Override
     public void actionPerformed(ActionEvent e)
@@ -349,11 +248,11 @@ public class Main extends JFrame implements ActionListener
                     }
                 }
                 Equation = Equation + "=";
-                if (JiSuan(Equation) <= GetMaxNum && -JiSuan(Equation) <= GetMaxNum)
+                if (CountAlgorithm.CountAlgorithm(Equation) <= GetMaxNum && -CountAlgorithm.CountAlgorithm(Equation) <= GetMaxNum)
                 {
                     if (OnlyPositive.isSelected())
                     {
-                        if (JiSuan(Equation) < 0)
+                        if (CountAlgorithm.CountAlgorithm(Equation) < 0)
                         {
                             i--;
                             continue;
@@ -365,12 +264,12 @@ public class Main extends JFrame implements ActionListener
                         if (SmallNum.isSelected() == false && divide.isSelected() == false)
                         {
                             int k;
-                            k = (int) (JiSuan(Equation));
+                            k = (int) (CountAlgorithm.CountAlgorithm(Equation));
                             outcome.append(String.valueOf(k));
                         }
                         else
                         {
-                            outcome.append(String.valueOf(JiSuan(Equation)));
+                            outcome.append(String.valueOf(CountAlgorithm.CountAlgorithm(Equation)));
                         }
                     }
                     outcome.append("\n");
@@ -385,7 +284,7 @@ public class Main extends JFrame implements ActionListener
         if (e.getSource() == Print)
         {
             JFileChooser SaveAs = new JFileChooser();
-            SaveAs.setApproveButtonText("Save");
+            SaveAs.setApproveButtonText("保存");
             SaveAs.showOpenDialog(this);
             File fileName = new File(SaveAs.getSelectedFile() + ".txt");
             try
@@ -401,6 +300,10 @@ public class Main extends JFrame implements ActionListener
             catch (IOException ex)
             {
             }
+        }
+        if (e.getSource() == Counter)
+        {
+            Count c = new Count();
         }
     }
 }
