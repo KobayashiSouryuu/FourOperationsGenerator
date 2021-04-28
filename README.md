@@ -11,7 +11,7 @@
 <img src="https://raw.githubusercontent.com/KobayashiSouryuu/FourOperationsGenerator/master/%E6%BC%94%E7%A4%BA1.png" width="50%">
 <img src="https://raw.githubusercontent.com/KobayashiSouryuu/FourOperationsGenerator/master/%E6%BC%94%E7%A4%BA2.png" width="50%">
 <img src="https://raw.githubusercontent.com/KobayashiSouryuu/FourOperationsGenerator/master/%E6%BC%94%E7%A4%BA3.png" width="50%">
-<img src="https://raw.githubusercontent.com/KobayashiSouryuu/FourOperationsGenerator/master/%E6%BC%94%E7%A4%BA4.png" width="20%">
+<img src="https://raw.githubusercontent.com/KobayashiSouryuu/FourOperationsGenerator/master/%E6%BC%94%E7%A4%BA4.png" width="25%">
 
 ## 已知bug
 
