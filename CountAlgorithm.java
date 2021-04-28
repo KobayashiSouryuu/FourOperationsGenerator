@@ -1,4 +1,3 @@
-import java.util.EmptyStackException;
 import java.util.Stack;
 
 public class CountAlgorithm
@@ -123,15 +122,15 @@ public class CountAlgorithm
             }
         }
         sum = Double.parseDouble(snum.peek().toString());
-        String c="";
-        while(!ssign.empty())
+        String c = "";
+        while (!ssign.empty())
         {
-            c=ssign.peek().toString();
+            c = ssign.peek().toString();
             ssign.pop();
         }
-        if(c.equals("-"))
+        if (c.equals("-"))
         {
-            sum=-sum;
+            sum = -sum;
         }
         return sum;
     }
