@@ -316,8 +316,7 @@ public class Main extends JFrame implements ActionListener
         {
             //先保存
             JFileChooser SaveAs = new JFileChooser();
-            File fileName = new File("E:\\print_temporary.txt");
-            System.out.println("hahaha");
+            File fileName = new File("print_temporary.txt");
             try
             {
                 if (fileName == null)
