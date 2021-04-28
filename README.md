@@ -8,6 +8,11 @@
 
 另外本程序附带计算器，可以进行一系列简单的运算
 
+<img src="https://raw.githubusercontent.com/KobayashiSouryuu/FourOperationsGenerator/master/%E6%BC%94%E7%A4%BA1.png" width="50%">
+<img src="https://raw.githubusercontent.com/KobayashiSouryuu/FourOperationsGenerator/master/%E6%BC%94%E7%A4%BA2.png" width="50%">
+<img src="https://raw.githubusercontent.com/KobayashiSouryuu/FourOperationsGenerator/master/%E6%BC%94%E7%A4%BA3.png" width="50%">
+<img src="https://raw.githubusercontent.com/KobayashiSouryuu/FourOperationsGenerator/master/%E6%BC%94%E7%A4%BA4.png" width="20%">
+
 ## 已知bug
 
 1.最大数为1且勾选小数时，会出现大于1的数
